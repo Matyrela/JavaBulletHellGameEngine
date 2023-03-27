@@ -35,12 +35,13 @@ public class GameObject {
     }
 
     public class Transform {
+        public float X = 0;
+        public float Y = 0;
+
         public Transform(float x, float y){
             this.X = x;
             this.Y = y;
         }
-        public float X = 0;
-        public float Y = 0;
         public void setX(float x) {
             X = x;
         }
