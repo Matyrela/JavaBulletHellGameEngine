@@ -1,37 +1,46 @@
 package me.mati.bhe;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import me.mati.bhe.go.GameObject;
+import me.mati.bhe.go.bullets.EntityManager;
 import me.mati.bhe.go.player.Player;
 
 public class Main extends ApplicationAdapter {
-	Player pl;
-	Player pl2lasecuela;
+	public static SpriteBatch Render;
 
 	@Override /**Start like*/
 	public void create () {
-		pl = new Player(0,0, "go/player/player.png");
-		pl.Start();
+		Render = new SpriteBatch();
 
-		pl2lasecuela = new Player(200,0, "go/player/player.png");
-		pl2lasecuela.Start();
+		Player pl = new Player(15, 15, "go/player/player.png");
+		Gdx.input.setInputProcessor(pl);
+
+
+		for (GameObject go: EntityManager.objectList) {
+			go.Start();
+		}
 	}
 
 	@Override /**Update like*/
-	public void render () {
+	public void render() {
 		ScreenUtils.clear(1, 0, 0, 1);
+		Render.begin();
 
-		pl.Update();
+		for (GameObject go: EntityManager.objectList) {
+			go.Update();
+		}
 
-		pl2lasecuela.Update();
+		Render.end();
 	}
 
 	@Override /**??? OnClose? like*/
 	public void dispose () {
-		pl.Dispose();
-
-		pl2lasecuela.Dispose();
+		for (GameObject go: EntityManager.objectList) {
+			go.Dispose();
+		}
 	}
 }

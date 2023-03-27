@@ -3,33 +3,32 @@ package me.mati.bhe.go;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import me.mati.bhe.Main;
+import me.mati.bhe.go.bullets.EntityManager;
 
 public class GameObject {
 
-    SpriteRender Sp;
-    Transform Tf;
+    public SpriteRender Sp;
+    public Transform Tf;
     public GameObject(float x, float y, String texture){
         Sp = new SpriteRender(texture);
         Tf = new Transform(x,y);
+        EntityManager.objectList.add(this);
     }
 
     public class SpriteRender{
-        public SpriteBatch Render;
         public Texture Sprite;
 
         public SpriteRender(String texture){
-            this.Render = new SpriteBatch();
+
             this.Sprite = new Texture(texture);
         }
 
         public void Render(){
-            Render.begin();
-            Render.draw(Sprite, Tf.X, Tf.Y);
-            Render.end();
+            Main.Render.draw(Sprite, Tf.X, Tf.Y);
         }
 
         public void Garbage(){
-            Render.dispose();
             Sprite.dispose();
         }
     }

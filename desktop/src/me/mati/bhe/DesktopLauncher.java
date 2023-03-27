@@ -9,7 +9,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.useVsync(true);
 		config.setForegroundFPS(60);
-		config.setTitle("BHE");
+		config.setTitle("Bullet Hell GameEngine");
 		new Lwjgl3Application(new Main(), config);
 	}
 }
