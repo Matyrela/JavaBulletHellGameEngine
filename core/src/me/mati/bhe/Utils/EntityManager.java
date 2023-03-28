@@ -1,6 +1,7 @@
-package me.mati.bhe.go.bullets;
+package me.mati.bhe.Utils;
 
 import me.mati.bhe.go.GameObject;
+import me.mati.bhe.go.bullets.Bullet;
 
 import java.util.ArrayList;
 import java.util.List;

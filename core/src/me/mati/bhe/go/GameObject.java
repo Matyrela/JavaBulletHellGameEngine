@@ -1,11 +1,9 @@
 package me.mati.bhe.go;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 import me.mati.bhe.Main;
-import me.mati.bhe.go.bullets.EntityManager;
+import me.mati.bhe.Utils.EntityManager;
 
 public class GameObject {
 
@@ -53,13 +51,15 @@ public class GameObject {
             this.Sprites = Textures;
         }
 
+
+
         public void Render(){
             Main.Render.draw(Sprite, Transform.X, Transform.Y, Transform.XT, Transform.YT);
         }
         long lastFrameTime;
         public void MultiRender(float s){
             long currentTime = TimeUtils.nanoTime();
-            float deltaTime = (currentTime - lastFrameTime) / 1000000000.0f; // convertir de nanosegundos a segundos
+            float deltaTime = (currentTime - lastFrameTime) / 1000000000.0f;
 
             if (deltaTime > s) {
                 frames += (int)(deltaTime / s);
@@ -118,7 +118,7 @@ public class GameObject {
         if(this.SpriteRenderer.Sprites == null){
             SpriteRenderer.Render();
         }else if(this.SpriteRenderer.Sprite == null){
-            SpriteRenderer.MultiRender(0.25f);
+            SpriteRenderer.MultiRender(2f);
         }
     }
 

@@ -1,11 +1,9 @@
 package me.mati.bhe.Utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Matrix4;
 import me.mati.bhe.Main;
 
-public class BulletHellCamera {
+public class Camera {
     int X,Y;
     int W,H;
 
@@ -25,39 +23,41 @@ public class BulletHellCamera {
         Y = y;
     }
 
-    public int getW() {
+    public int getWidth() {
         return W;
     }
 
-    public void setW(int w) {
+    public void setWidth(int w) {
         W = w;
     }
 
-    public int getH() {
+    public int getHeight() {
         return H;
     }
 
-    public void setH(int h) {
+    public void setHeight(int h) {
         H = h;
     }
 
     private OrthographicCamera cam;
 
-    public BulletHellCamera(int x, int y, int w, int h){
+    public Camera(int x, int y, int w, int h){
         this.X = x;
         this.Y = y;
 
         this.W = w;
         this.H = h;
 
-        cam = new OrthographicCamera(30, 30 * (h / w));
-        cam.position.set(cam.viewportWidth / 2f + X, cam.viewportHeight / 2f + Y, 0);
+        cam = new OrthographicCamera(30, 30 * (H / W));
+        cam.position.set(cam.viewportWidth / 2, cam.viewportHeight / 2, 0);
         cam.update();
     }
 
     public void Update(){
-        cam.update();
         Main.Render.setProjectionMatrix(cam.combined);
         cam.setToOrtho(false, this.W, this.H);
+        cam.update();
+
+
     }
 }

@@ -5,22 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import me.mati.bhe.Utils.BulletHellCamera;
+import me.mati.bhe.Utils.Camera;
 import me.mati.bhe.go.GameObject;
-import me.mati.bhe.go.bullets.EntityManager;
+import me.mati.bhe.Utils.EntityManager;
 import me.mati.bhe.go.player.Player;
 
 public class Main extends ApplicationAdapter {
 	public static SpriteBatch Render;
 	public static int Width, Heigth;
-	public BulletHellCamera Camera;
+	public me.mati.bhe.Utils.Camera Camera;
 
 	@Override
 	public void create (){
 		Width = Gdx.graphics.getWidth();
 		Heigth = Gdx.graphics.getHeight();
 		Render = new SpriteBatch();
-		Camera = new BulletHellCamera(0, -250, 500, 500);
+
+		Camera = new Camera(0, -250, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		String[] stringArray = new String[4];
 		stringArray[0] = "go\\player\\Walk0.png";
@@ -29,7 +30,6 @@ public class Main extends ApplicationAdapter {
 		stringArray[3] = "go\\player\\Walk3.png";
 
 		Player pl = new Player(15, 15, stringArray);
-		Gdx.input.setInputProcessor(pl);
 
 		font = new BitmapFont();
 
@@ -60,5 +60,11 @@ public class Main extends ApplicationAdapter {
 		for (GameObject go: EntityManager.objectList) {
 			go.Dispose();
 		}
+	}
+
+	@Override
+	public void resize(int width, int height){
+		Camera.setWidth(Gdx.graphics.getWidth());
+		Camera.setHeight(Gdx.graphics.getHeight());
 	}
 }

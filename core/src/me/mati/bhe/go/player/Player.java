@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import me.mati.bhe.go.GameObject;
 
-public class Player extends GameObject implements InputProcessor {
+public class Player extends GameObject {
     public Player(float x, float y, String[] texture) {
         super(x, y, texture, 250 , 250);
     }
@@ -18,69 +18,15 @@ public class Player extends GameObject implements InputProcessor {
     @Override
     public void Update(){
         super.Update();
+        move();
+    }
+    private void move() {
+        Transform.setY(Transform.Y + (Gdx.input.isKeyPressed(Input.Keys.W) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.S) ? -10 : 0));
+        Transform.setX(Transform.X + (Gdx.input.isKeyPressed(Input.Keys.D) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.A) ? -10 : 0));
     }
 
     @Override
     public void Dispose(){
         super.Dispose();
-    }
-
-    /** InputProcesor Methods*/
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) { return false; }
-
-    @Override
-    public boolean keyTyped(char character) {
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            Transform.setY(Transform.Y + 10);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            Transform.setY(Transform.Y - 10);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            Transform.setX(Transform.X - 10);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            Transform.setX(Transform.X + 10);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(float amountX, float amountY) {
-        return false;
     }
 }
