@@ -18,7 +18,7 @@ public class GameObject {
 
     public GameObject(float x, float y, String texture, float xT, float yT){
         SpriteRenderer = new SpriteRender(texture);
-        Transform = new Transformizer(x,y);
+        Transform = new Transformizer(x,y, xT, yT);
         EntityManager.objectList.add(this);
     }
 

@@ -19,7 +19,6 @@ public class Main extends ApplicationAdapter {
 		Player pl = new Player(15, 15, "go/player/player.png");
 		Gdx.input.setInputProcessor(pl);
 
-
 		for (GameObject go: EntityManager.objectList) {
 			go.Start();
 		}
