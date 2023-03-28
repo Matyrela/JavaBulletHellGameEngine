@@ -33,29 +33,27 @@ public class Player extends GameObject implements InputProcessor {
     }
 
     @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+    public boolean keyUp(int keycode) { return false; }
 
     @Override
     public boolean keyTyped(char character) {
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            super.Tf.setY(Tf.Y + 10);
-            return true;
+            super.Transform.setY(Transform.Y + 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            super.Tf.setY(Tf.Y - 10);
-            return true;
+            super.Transform.setY(Transform.Y - 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            super.Tf.setX(Tf.X - 10);
-            return true;
+            super.Transform.setX(Transform.X - 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            super.Tf.setX(Tf.X + 10);
+            super.Transform.setX(Transform.X + 10);
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
             return true;
         }
         return false;

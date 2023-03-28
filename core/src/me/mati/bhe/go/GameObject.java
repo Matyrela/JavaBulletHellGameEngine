@@ -8,11 +8,17 @@ import me.mati.bhe.go.bullets.EntityManager;
 
 public class GameObject {
 
-    public SpriteRender Sp;
-    public Transform Tf;
+    public SpriteRender SpriteRenderer;
+    public Transformizer Transform;
     public GameObject(float x, float y, String texture){
-        Sp = new SpriteRender(texture);
-        Tf = new Transform(x,y);
+        SpriteRenderer = new SpriteRender(texture);
+        Transform = new Transformizer(x,y);
+        EntityManager.objectList.add(this);
+    }
+
+    public GameObject(float x, float y, String texture, float xT, float yT){
+        SpriteRenderer = new SpriteRender(texture);
+        Transform = new Transformizer(x,y);
         EntityManager.objectList.add(this);
     }
 
@@ -25,7 +31,7 @@ public class GameObject {
         }
 
         public void Render(){
-            Main.Render.draw(Sprite, Tf.X, Tf.Y);
+            Main.Render.draw(Sprite, Transform.X, Transform.Y, Transform.XT, Transform.YT);
         }
 
         public void Garbage(){
@@ -33,17 +39,25 @@ public class GameObject {
         }
     }
 
-    public class Transform {
+    public class Transformizer {
         public float X = 0;
         public float Y = 0;
+        public float XT = SpriteRenderer.Sprite.getWidth();
+        public float YT = SpriteRenderer.Sprite.getHeight();
 
-        public Transform(float x, float y){
+        public Transformizer(float x, float y){
             this.X = x;
             this.Y = y;
         }
-        public void setX(float x) {
-            X = x;
+        public Transformizer(float x, float y, float xT, float yT){
+            this.X = x;
+            this.Y = y;
+            this.XT = xT;
+            this.YT = yT;
         }
+
+
+        public void setX(float x) { X = x; }
         public void setY(float y) {
             Y = y;
         }
@@ -54,10 +68,10 @@ public class GameObject {
     }
 
     public void Update(){
-        Sp.Render();
+        SpriteRenderer.Render();
     }
 
     public void Dispose(){
-        Sp.Garbage();
+        SpriteRenderer.Garbage();
     }
 }
