@@ -6,8 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import me.mati.bhe.go.GameObject;
 
 public class Player extends GameObject implements InputProcessor {
-    public Player(float x, float y, String texture) {
-        super(x, y, texture);
+    public Player(float x, float y, String[] texture) {
+        super(x, y, texture, 250 , 250);
     }
 
     @Override
@@ -38,19 +38,19 @@ public class Player extends GameObject implements InputProcessor {
     @Override
     public boolean keyTyped(char character) {
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            super.Transform.setY(Transform.Y + 10);
+            Transform.setY(Transform.Y + 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.S)){
-            super.Transform.setY(Transform.Y - 10);
+            Transform.setY(Transform.Y - 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
-            super.Transform.setX(Transform.X - 10);
+            Transform.setX(Transform.X - 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            super.Transform.setX(Transform.X + 10);
+            Transform.setX(Transform.X + 10);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
