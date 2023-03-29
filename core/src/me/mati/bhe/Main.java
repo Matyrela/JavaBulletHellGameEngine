@@ -13,7 +13,7 @@ import me.mati.bhe.go.player.Player;
 public class Main extends ApplicationAdapter {
 	public static SpriteBatch Render;
 	public static int Width, Heigth;
-	public me.mati.bhe.Utils.Camera Camera;
+	public static Camera Cam;
 
 	@Override
 	public void create (){
@@ -21,13 +21,13 @@ public class Main extends ApplicationAdapter {
 		Heigth = Gdx.graphics.getHeight();
 		Render = new SpriteBatch();
 
-		Camera = new Camera(0, -250, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		Cam = new Camera(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		String[] stringArray = new String[4];
-		stringArray[0] = "go\\player\\Walk0.png";
-		stringArray[1] = "go\\player\\Walk1.png";
-		stringArray[2] = "go\\player\\Walk2.png";
-		stringArray[3] = "go\\player\\Walk3.png";
+		stringArray[0] = "go/player/Walk0.png";
+		stringArray[1] = "go/player/Walk1.png";
+		stringArray[2] = "go/player/Walk2.png";
+		stringArray[3] = "go/player/Walk3.png";
 
 		Player pl = new Player(15, 15, stringArray);
 
@@ -43,10 +43,12 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render() {
 		ScreenUtils.clear(0, 0, 0, 1);
-		Camera.Update();
+		Cam.Update();
 
 		Render.begin();
-		font.draw(Render, "SOY UNA REFERENCIA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", 10, 10);
+		font.draw(Render, ".", 0, 0);
+		font.draw(Render, "0 | 0", -12, 7);
+
 
 		for (GameObject go: EntityManager.objectList) {
 			go.Update();
@@ -64,7 +66,7 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height){
-		Camera.setWidth(Gdx.graphics.getWidth());
-		Camera.setHeight(Gdx.graphics.getHeight());
+		Cam.setWidth(Gdx.graphics.getWidth());
+		Cam.setHeight(Gdx.graphics.getHeight());
 	}
 }

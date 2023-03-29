@@ -21,14 +21,14 @@ public class GameObject {
         EntityManager.objectList.add(this);
     }
 
-    public GameObject(float x, float y, String[] texture){
-        SpriteRenderer = new SpriteRender(texture);
+    public GameObject(float x, float y, String[] texture, float animSpeed){
+        SpriteRenderer = new SpriteRender(texture, animSpeed);
         Transform = new Transformizer(x,y);
         EntityManager.objectList.add(this);
     }
 
-    public GameObject(float x, float y, String[] texture, float xT, float yT){
-        SpriteRenderer = new SpriteRender(texture);
+    public GameObject(float x, float y, String[] texture, float xT, float yT, float animSpeed){
+        SpriteRenderer = new SpriteRender(texture, animSpeed);
         Transform = new Transformizer(x,y,xT,yT);
         EntityManager.objectList.add(this);
     }
@@ -37,12 +37,15 @@ public class GameObject {
         public Texture Sprite;
         public Texture[] Sprites;
         int frames;
+        float AnimSpeed = 0;
+
 
         public SpriteRender(String texture){
             this.Sprite = new Texture(texture);
         }
 
-        public SpriteRender(String[] texture){
+        public SpriteRender(String[] texture, float animSpeed){
+            AnimSpeed = animSpeed;
             Texture[] Textures = new Texture[texture.length];
             for (int i = 0; i < texture.length; i++) {
                 Texture j = new Texture(texture[i]);
@@ -57,12 +60,12 @@ public class GameObject {
             Main.Render.draw(Sprite, Transform.X, Transform.Y, Transform.XT, Transform.YT);
         }
         long lastFrameTime;
-        public void MultiRender(float s){
+        public void MultiRender(){
             long currentTime = TimeUtils.nanoTime();
             float deltaTime = (currentTime - lastFrameTime) / 1000000000.0f;
 
-            if (deltaTime > s) {
-                frames += (int)(deltaTime / s);
+            if (deltaTime > AnimSpeed) {
+                frames += (int)(deltaTime / AnimSpeed);
                 lastFrameTime = currentTime;
             }
 
@@ -118,7 +121,7 @@ public class GameObject {
         if(this.SpriteRenderer.Sprites == null){
             SpriteRenderer.Render();
         }else if(this.SpriteRenderer.Sprite == null){
-            SpriteRenderer.MultiRender(2f);
+            SpriteRenderer.MultiRender();
         }
     }
 
