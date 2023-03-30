@@ -58,6 +58,7 @@ public class GameObject {
 
 
         public void Render(){
+
             Main.Render.draw(Sprite, Transform.X, Transform.Y, Transform.XT, Transform.YT);
         }
         long lastFrameTime;
@@ -73,7 +74,7 @@ public class GameObject {
             if(frames >= Sprites.length)
                 frames = 0;
 
-            Main.Render.draw(Sprites[frames], Transform.X, Transform.Y, Transform.XT, Transform.YT);
+            Main.Render.draw(Sprites[frames], Transform.X - (Transform.XT / 2), Transform.Y - (Transform.YT / 2), Transform.XT, Transform.YT);
         }
 
         public void Garbage(){
