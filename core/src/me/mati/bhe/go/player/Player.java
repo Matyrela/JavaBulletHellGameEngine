@@ -23,15 +23,34 @@ public class Player extends GameObject {
 
     }
     private void move() {
-        Transform.setY(Transform.getY() + (Gdx.input.isKeyPressed(Input.Keys.W) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.S) ? -10 : 0));
-        Transform.setX(Transform.getX() + (Gdx.input.isKeyPressed(Input.Keys.D) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.A) ? -10 : 0));
-
-        //Main.Cam.setFuturePosX(Main.Cam.getFuturePosX() + (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.LEFT) ? -10 : 0));
-        //Main.Cam.setFuturePosY(Main.Cam.getFuturePosY() + (Gdx.input.isKeyPressed(Input.Keys.UP) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.DOWN) ? -10 : 0));
-
-        if(Gdx.input.isKeyPressed(Input.Keys.H)){
-            Main.Cam.MoveCamera(400, 400, 3);
+        if(Gdx.input.isKeyPressed(Input.Keys.W))
+        {
+            if(Gdx.input.isKeyPressed(Input.Keys.D)){
+                Transform.setY(Transform.getY() + 7.07f);
+                Transform.setX(Transform.getX() + 7.07f);
+            }else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+                Transform.setY(Transform.getY() + 7.07f);
+                Transform.setX(Transform.getX() - 7.07f);
+            }else{
+                Transform.setY(Transform.getY() + 10f);
+            }
+        } else if(Gdx.input.isKeyPressed(Input.Keys.S)){
+            if(Gdx.input.isKeyPressed(Input.Keys.D)){
+                Transform.setY(Transform.getY() - 7.07f);
+                Transform.setX(Transform.getX() + 7.07f);
+            }else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+                Transform.setY(Transform.getY() - 7.07f);
+                Transform.setX(Transform.getX() - 7.07f);
+            }else{
+                Transform.setY(Transform.getY() - 10f);
+            }
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            Transform.setX(Transform.getX() + 10f);
+        }else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            Transform.setX(Transform.getX() - 10f);
         }
+
+
     }
 
     @Override

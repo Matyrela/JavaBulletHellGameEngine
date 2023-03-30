@@ -37,7 +37,6 @@ public class Main extends ApplicationAdapter {
 		for (GameObject go : EntityManager.objectList) {
 			go.Start();
 		}
-		Cam.CameraSpeed = 5;
 	}
 
 	BitmapFont font;

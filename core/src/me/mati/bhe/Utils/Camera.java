@@ -84,8 +84,7 @@ public class Camera {
 
         cam.update();
     }
-    public float CameraSpeed = 0.1f;
-
+    public float CameraSpeed = 130;
     public void TeleportCamera(int x, int y){
         RealPos.x = x;
         RealPos.y = y;
@@ -100,7 +99,7 @@ public class Camera {
         CameraSpeed = speed;
     }
 
-    private static final float MAX_DISTANCE_TO_GO = 100f;
+    private static final float MAX_DISTANCE_TO_GO = 400f;
 
     void moveToFuturePos() {
         if (RealPos == FuturePos) {
@@ -113,8 +112,8 @@ public class Camera {
         float distanceToGo = direction.len();
         float timeElapsed = Gdx.graphics.getDeltaTime();
 
-        float speedMultiplier = MathUtils.clamp(distanceToGo / MAX_DISTANCE_TO_GO, 0f, 1f);
-        float speed = CameraSpeed * 43 * (float)Math.exp(speedMultiplier);
+        float speedMultiplier = MathUtils.clamp(distanceToGo / MAX_DISTANCE_TO_GO, 1f, 0f);
+        float speed = CameraSpeed * (1 + (1 - speedMultiplier) * 4);
 
         float moveDistance = Math.min(distanceToGo, timeElapsed * speed);
 
