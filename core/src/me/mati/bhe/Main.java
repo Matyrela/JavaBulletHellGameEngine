@@ -14,6 +14,7 @@ public class Main extends ApplicationAdapter {
 	public static SpriteBatch Render;
 	public static int Width, Heigth;
 	public static Camera Cam;
+	Player pl;
 
 	@Override
 	public void create (){
@@ -29,13 +30,14 @@ public class Main extends ApplicationAdapter {
 		stringArray[2] = "go/player/Walk2.png";
 		stringArray[3] = "go/player/Walk3.png";
 
-		Player pl = new Player(15, 15, stringArray);
+		pl = new Player(15, 15, stringArray);
 
 		font = new BitmapFont();
 
 		for (GameObject go : EntityManager.objectList) {
 			go.Start();
 		}
+		Cam.CameraSpeed = 5;
 	}
 
 	BitmapFont font;
@@ -49,6 +51,13 @@ public class Main extends ApplicationAdapter {
 		font.draw(Render, ".", 0, 0);
 		font.draw(Render, "0 | 0", -12, 7);
 
+		font.draw(Render, "(" + pl.Transform.getX() + " , " + pl.Transform.getY() + ")", pl.Transform.getX(), pl.Transform.getY());
+
+		font.draw(Render, "(" + Cam.getRealPosX() + " , " + Cam.getRealPosY() + ")",  Cam.getRealPosX(), Cam.getRealPosY());
+		font.draw(Render, "(" + Cam.getFuturePosX() + " , " + Cam.getFuturePosY() + ")",  Cam.getFuturePosX(), Cam.getFuturePosY());
+
+		Cam.setFuturePosX(pl.Transform.getX());
+		Cam.setFuturePosY(pl.Transform.getY());
 
 		for (GameObject go: EntityManager.objectList) {
 			go.Update();
@@ -58,7 +67,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	@Override
-	public void dispose () {
+	public void dispose() {
 		for (GameObject go: EntityManager.objectList) {
 			go.Dispose();
 		}
@@ -66,7 +75,9 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void resize(int width, int height){
-		Cam.setWidth(Gdx.graphics.getWidth());
-		Cam.setHeight(Gdx.graphics.getHeight());
+		Width = Gdx.graphics.getWidth();
+		Heigth = Gdx.graphics.getHeight();
+		Cam.setWidth(Width);
+		Cam.setHeight(Heigth);
 	}
 }

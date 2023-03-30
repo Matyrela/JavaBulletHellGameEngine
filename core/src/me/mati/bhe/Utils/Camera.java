@@ -2,6 +2,7 @@ package me.mati.bhe.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import me.mati.bhe.Main;
 
@@ -9,31 +10,31 @@ public class Camera {
     int X,Y;
     int W,H;
 
-    public int getFuturePosX() {
-        return (int) FuturePos.x;
+    public float getFuturePosX() {
+        return FuturePos.x;
     }
-    public int getFuturePosY() {
-        return (int) FuturePos.y;
+    public float getFuturePosY() {
+        return  FuturePos.y;
     }
-    public void setFuturePosX(int x) {
+    public void setFuturePosX(float x) {
         FuturePos.x = x;
     }
-    public void setFuturePosY(int y) {
+    public void setFuturePosY(float y) {
         FuturePos.y = y;
     }
 
 
-    public int getRealPosX() {
-        return (int) RealPos.x;
+    public float getRealPosX() {
+        return RealPos.x;
     }
-    public int getRealPosY() {
-        return (int) RealPos.y;
+    public float getRealPosY() {
+        return RealPos.y;
     }
-    public void setRealPosX(int x) {
+    public void setRealPosX(float x) {
         FuturePos.x = x;
         RealPos.x = x;
     }
-    public void setRealPosY(int y) {
+    public void setRealPosY(float y) {
         FuturePos.y = y;
         RealPos.y = y;
     }
@@ -56,7 +57,7 @@ public class Camera {
         H = h;
     }
 
-    private OrthographicCamera cam;
+    OrthographicCamera cam;
 
     Vector3 RealPos;
     Vector3 FuturePos;
@@ -79,12 +80,11 @@ public class Camera {
     public void Update(){
         Main.Render.setProjectionMatrix(cam.combined);
         cam.setToOrtho(false, this.W, this.H);
-        moveToPostToGo();
-        cam.position.lerp(RealPos, 0.5f);
+        moveToFuturePos();
 
         cam.update();
     }
-    float CameraSpeed = 1;
+    public float CameraSpeed = 0.1f;
 
     public void TeleportCamera(int x, int y){
         RealPos.x = x;
@@ -93,28 +93,37 @@ public class Camera {
         FuturePos.y = y;
     }
 
-    public void MoveCamera(int x, int y, float speed){
+    public void MoveCamera(float x, float y, float speed){
         FuturePos.x = x;
         FuturePos.y = y;
         FuturePos.z = 0;
         CameraSpeed = speed;
     }
 
-    void moveToPostToGo(){
-        if(RealPos == FuturePos){
+    private static final float MAX_DISTANCE_TO_GO = 100f;
+
+    void moveToFuturePos() {
+        if (RealPos == FuturePos) {
             return;
         }
 
-        Vector3 direction = FuturePos.cpy().sub(RealPos); // calcular la dirección hacia posToGo
-        float distanceToGo = direction.len(); // calcular la distancia a posToGo
-        float timeElapsed = Gdx.graphics.getDeltaTime(); // obtener el tiempo transcurrido desde la última actualización de pantalla
-        float moveDistance = Math.min(distanceToGo, timeElapsed * CameraSpeed * 100); // calcular la distancia a mover, limitada por la distancia restante o la velocidad de la cámara
+        cam.position.set(RealPos);
 
-        RealPos.add(direction.nor().scl(moveDistance)); // actualizar la posición de la cámara
+        Vector3 direction = FuturePos.cpy().sub(RealPos);
+        float distanceToGo = direction.len();
+        float timeElapsed = Gdx.graphics.getDeltaTime();
 
-        // Si la cámara se mueve más cerca de posToGo que moveDistance, ajusta la posición a posToGo
+        float speedMultiplier = MathUtils.clamp(distanceToGo / MAX_DISTANCE_TO_GO, 0f, 1f);
+        float speed = CameraSpeed * 43 * (float)Math.exp(speedMultiplier);
+
+        float moveDistance = Math.min(distanceToGo, timeElapsed * speed);
+
+        RealPos.add(direction.nor().scl(moveDistance));
+
         if (FuturePos.dst(RealPos) < moveDistance) {
             RealPos.set(FuturePos);
         }
     }
+
+
 }

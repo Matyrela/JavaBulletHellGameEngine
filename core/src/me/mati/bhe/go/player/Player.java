@@ -20,13 +20,18 @@ public class Player extends GameObject {
     public void Update(){
         super.Update();
         move();
+
     }
     private void move() {
-        Transform.setY(Transform.Y + (Gdx.input.isKeyPressed(Input.Keys.W) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.S) ? -10 : 0));
-        Transform.setX(Transform.X + (Gdx.input.isKeyPressed(Input.Keys.D) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.A) ? -10 : 0));
+        Transform.setY(Transform.getY() + (Gdx.input.isKeyPressed(Input.Keys.W) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.S) ? -10 : 0));
+        Transform.setX(Transform.getX() + (Gdx.input.isKeyPressed(Input.Keys.D) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.A) ? -10 : 0));
 
-        Main.Cam.setRealPosY(Main.Cam.getRealPosY() + (Gdx.input.isKeyPressed(Input.Keys.UP) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.DOWN) ? -10 : 0));
-        Main.Cam.setRealPosX(Main.Cam.getRealPosX() + (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.LEFT) ? -10 : 0));
+        //Main.Cam.setFuturePosX(Main.Cam.getFuturePosX() + (Gdx.input.isKeyPressed(Input.Keys.RIGHT) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.LEFT) ? -10 : 0));
+        //Main.Cam.setFuturePosY(Main.Cam.getFuturePosY() + (Gdx.input.isKeyPressed(Input.Keys.UP) ? 10 : 0) + (Gdx.input.isKeyPressed(Input.Keys.DOWN) ? -10 : 0));
+
+        if(Gdx.input.isKeyPressed(Input.Keys.H)){
+            Main.Cam.MoveCamera(400, 400, 3);
+        }
     }
 
     @Override

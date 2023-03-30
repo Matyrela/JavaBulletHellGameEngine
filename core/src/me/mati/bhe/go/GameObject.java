@@ -1,6 +1,7 @@
 package me.mati.bhe.go;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
 import me.mati.bhe.Main;
 import me.mati.bhe.Utils.EntityManager;
@@ -87,17 +88,17 @@ public class GameObject {
     }
 
     public class Transformizer {
-        public float X = 0;
-        public float Y = 0;
-        public float XT = (SpriteRenderer.Sprite == null) ? SpriteRenderer.Sprites[0].getWidth() : SpriteRenderer.Sprite.getWidth();
-        public float YT = (SpriteRenderer.Sprite == null) ? SpriteRenderer.Sprites[0].getHeight() : SpriteRenderer.Sprite.getHeight();
+        float X = 0;
+        float Y = 0;
+        float XT = (SpriteRenderer.Sprite == null) ? SpriteRenderer.Sprites[0].getWidth() : SpriteRenderer.Sprite.getWidth();
+        float YT = (SpriteRenderer.Sprite == null) ? SpriteRenderer.Sprites[0].getHeight() : SpriteRenderer.Sprite.getHeight();
 
 
-        public Transformizer(float x, float y){
+        private Transformizer(float x, float y){
             this.X = x;
             this.Y = y;
         }
-        public Transformizer(float x, float y, float xT, float yT){
+        private Transformizer(float x, float y, float xT, float yT){
             this.X = x;
             this.Y = y;
             this.XT = xT;
@@ -110,6 +111,12 @@ public class GameObject {
         }
         public void setY(float y) {
             Y = y;
+        }
+        public float getX() {
+            return X;
+        }
+        public float getY() {
+            return Y;
         }
     }
 
