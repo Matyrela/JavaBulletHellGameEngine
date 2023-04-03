@@ -1,10 +1,11 @@
 package me.mati.bhe.go;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 import me.mati.bhe.Main;
-import me.mati.bhe.Utils.EntityManager;
+import me.mati.bhe.utils.EntityManager;
 
 public class GameObject {
 
@@ -55,14 +56,12 @@ public class GameObject {
             this.Sprites = Textures;
         }
 
-
-
-        public void Render(){
+        void Render(){
 
             Main.Render.draw(Sprite, Transform.X, Transform.Y, Transform.XT, Transform.YT);
         }
         long lastFrameTime;
-        public void MultiRender(){
+        void MultiRender(){
             long currentTime = TimeUtils.nanoTime();
             float deltaTime = (currentTime - lastFrameTime) / 1000000000.0f;
 
@@ -93,29 +92,43 @@ public class GameObject {
         float Y = 0;
         float XT = (SpriteRenderer.Sprite == null) ? SpriteRenderer.Sprites[0].getWidth() : SpriteRenderer.Sprite.getWidth();
         float YT = (SpriteRenderer.Sprite == null) ? SpriteRenderer.Sprites[0].getHeight() : SpriteRenderer.Sprite.getHeight();
+        private Vector3 position;
+        private Matrix4 matrix;
 
-
-        private Transformizer(float x, float y){
+        Transformizer(float x, float y){
             this.X = x;
             this.Y = y;
+            position = new Vector3();
+            matrix = new Matrix4();
         }
-        private Transformizer(float x, float y, float xT, float yT){
+
+        Transformizer(float x, float y, float xT, float yT){
             this.X = x;
             this.Y = y;
             this.XT = xT;
             this.YT = yT;
+            position = new Vector3();
+            matrix = new Matrix4();
         }
-
-
         public void setX(float x) {
             X = x;
         }
+
         public void setY(float y) {
             Y = y;
         }
+
+        public void translate(float x, float y, float z) {
+            position.add(x, y, z);
+            matrix.translate(x, y, z);
+            X = position.x;
+            Y = position.y;
+        }
+
         public float getX() {
             return X;
         }
+
         public float getY() {
             return Y;
         }

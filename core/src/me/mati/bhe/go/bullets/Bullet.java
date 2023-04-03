@@ -1,6 +1,6 @@
 package me.mati.bhe.go.bullets;
 
-import me.mati.bhe.Utils.EntityManager;
+import me.mati.bhe.utils.EntityManager;
 import me.mati.bhe.go.GameObject;
 
 public class Bullet extends GameObject {

@@ -1,4 +1,4 @@
-package me.mati.bhe.Utils;
+package me.mati.bhe.utils;
 
 import me.mati.bhe.go.GameObject;
 import me.mati.bhe.go.bullets.Bullet;

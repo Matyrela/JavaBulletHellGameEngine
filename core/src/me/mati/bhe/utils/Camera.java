@@ -1,4 +1,4 @@
-package me.mati.bhe.Utils;
+package me.mati.bhe.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -84,8 +84,7 @@ public class Camera {
 
         cam.update();
     }
-    public float CameraSpeed = 130;
-    public void TeleportCamera(int x, int y){
+    public void TeleportCamera(float x, float y){
         RealPos.x = x;
         RealPos.y = y;
         FuturePos.x = x;
@@ -99,30 +98,36 @@ public class Camera {
         CameraSpeed = speed;
     }
 
+    private static final float MIN_DISTANCE_THRESHOLD = 1f;
     private static final float MAX_DISTANCE_TO_GO = 400f;
+    public float CameraSpeed = 125;
+    public float distanceMultiplier = 4;
 
     void moveToFuturePos() {
-        if (RealPos == FuturePos) {
+        cam.position.set(RealPos);
+        if (RealPos.epsilonEquals(FuturePos, MIN_DISTANCE_THRESHOLD)) {
             return;
         }
 
-        cam.position.set(RealPos);
 
         Vector3 direction = FuturePos.cpy().sub(RealPos);
         float distanceToGo = direction.len();
         float timeElapsed = Gdx.graphics.getDeltaTime();
 
         float speedMultiplier = MathUtils.clamp(distanceToGo / MAX_DISTANCE_TO_GO, 1f, 0f);
-        float speed = CameraSpeed * (1 + (1 - speedMultiplier) * 4);
+        float speed = distanceMultiplier * distanceToGo * (1 + (1 - speedMultiplier) * 4);
 
         float moveDistance = Math.min(distanceToGo, timeElapsed * speed);
 
         RealPos.add(direction.nor().scl(moveDistance));
 
-        if (FuturePos.dst(RealPos) < moveDistance) {
+        if (RealPos.epsilonEquals(FuturePos, MIN_DISTANCE_THRESHOLD)) {
             RealPos.set(FuturePos);
         }
     }
+
+
+
 
 
 }

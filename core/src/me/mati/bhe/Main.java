@@ -4,10 +4,12 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.ScreenUtils;
-import me.mati.bhe.Utils.Camera;
+import me.mati.bhe.utils.Camera;
 import me.mati.bhe.go.GameObject;
-import me.mati.bhe.Utils.EntityManager;
+import me.mati.bhe.utils.EntityManager;
 import me.mati.bhe.go.player.Player;
 
 public class Main extends ApplicationAdapter {
@@ -30,7 +32,7 @@ public class Main extends ApplicationAdapter {
 		stringArray[2] = "go/player/Walk2.png";
 		stringArray[3] = "go/player/Walk3.png";
 
-		pl = new Player(15, 15, stringArray);
+		pl = new Player(0, 0, stringArray);
 
 		font = new BitmapFont();
 
@@ -76,7 +78,7 @@ public class Main extends ApplicationAdapter {
 	public void resize(int width, int height){
 		Width = Gdx.graphics.getWidth();
 		Heigth = Gdx.graphics.getHeight();
-		Cam.setWidth(Width);
-		Cam.setHeight(Heigth);
+		Cam.setWidth(Width * 1);
+		Cam.setHeight(Heigth * 1);
 	}
 }
